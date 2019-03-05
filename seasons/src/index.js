@@ -23,19 +23,40 @@ import ReactDOM from 'react-dom';
 // class component can add logic and control,
 // React.Component class has alot of functions
 class App extends React.Component {
-    render(){
+    // our constructor overwriting constructor inside React.Component,
+    // use super(props) to reference parent React.Component and pass in props,
+    // initialize state object
+    constructor(props){
+        super(props);
+        this.state = {lat: null, errorMessage: ''};
         // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
         window.navigator.geolocation.getCurrentPosition(
             // success callback
             (position) => {
-                console.log(position);
+                this.setState({lat: position.coords.latitude});
             },
             // fail callback
             (err) => {
-                console.log(err);
+                this.setState({errorMessage: err.message});
             }
         );
-        return <div>Latitude: </div>;
+    }
+    render(){
+        // return (
+        //     <div>
+        //         Latitude: {this.state.lat}
+        //         <br />
+        //         Error: {this.state.errorMessage}
+        //     </div>
+        // );
+        if(this.state.errorMessage && !this.state.lat){
+            return <div>Error: {this.state.errorMessage}</div>
+        }
+        if(!this.state.errorMessage && this.state.lat){
+            return <div>Latitude: {this.state.lat}</div>
+        }
+        // when popup question ask user to allow gps location, before user give answer
+        return <div>Loading...</div>;
     }
 }
 
