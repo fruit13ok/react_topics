@@ -5,20 +5,6 @@ import ReactDOM from 'react-dom';
 
 // App.js will pass location and month props to SeasonDisplay.js,
 // SeasonDisplay.js will show text base on props
-// const App = () => {
-//     // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
-//     window.navigator.geolocation.getCurrentPosition(
-//         // success callback
-//         (position) => {
-//             console.log(position);
-//         },
-//         // fail callback
-//         (err) => {
-//             console.log(err);
-//         }
-//     );
-//     return <div>Latitude: </div>;
-// };
 
 // class component can add logic and control,
 // React.Component class has alot of functions
@@ -26,9 +12,17 @@ class App extends React.Component {
     // our constructor overwriting constructor inside React.Component,
     // use super(props) to reference parent React.Component and pass in props,
     // initialize state object
-    constructor(props){
-        super(props);
-        this.state = {lat: null, errorMessage: ''};
+    // constructor(props){
+    //     super(props);
+    //     this.state = {lat: null, errorMessage: ''};
+    // }
+
+    // init state outside of constructor is the shorthand, Babel will build default constructor with your state
+    // no 'this' keyword
+    state = {lat: null, errorMessage: ''};
+
+    componentDidMount(){
+        // console.log('my component was rendered to the screen');
         // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
         window.navigator.geolocation.getCurrentPosition(
             // success callback
@@ -41,6 +35,11 @@ class App extends React.Component {
             }
         );
     }
+
+    componentDidUpdate(){
+        console.log('my component just updated - rerendered');
+    }
+
     render(){
         // return (
         //     <div>
@@ -66,3 +65,4 @@ ReactDOM.render(
     // document.getElementById('root')
     document.querySelector('#root')
 );
+
