@@ -1,5 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import './SeasonDisplay.css';
+
+// use object is beeter than ternary operator
+const seasonConfig = {
+    summer: {
+      text: "Let's hit the beach!",
+      iconName: 'sun'
+    },
+    winter: {
+      text: 'Burr it is cold!',
+      iconName: 'snowflake'
+    }
+};
 
 // new Date().getMonth() start from 0 is January
 // northern hemisphere, lat > 0
@@ -20,16 +32,12 @@ const getSeason = (lat, month) => {
 // SeasonDisplay.js will show text base on props
 const SeasonDisplay = (props) => {
     const season = getSeason(props.lat, new Date().getMonth());
-    const text = season === 'winter' ? 'Burr, it is chilly' : 'Lets hit the beach';
-    // https://semantic-ui.com/elements/icon.html#/icon
-    const icon = season === 'winter' ? 'snowflake' : 'sun';
-    // <i className={`${icon} icon`} /> means evaluate ${icon} to get its vale 'winter'
-    // it became <i className="winter icon" />
+    const { text, iconName } = seasonConfig[season];
     return (
-        <div>
-            <i className={`${icon} icon`} />
+        <div className={`season-display ${season}`}>
+            <i className={`icon-left massive ${iconName} icon`} />
             <h1>{text}</h1>
-            <i className={`${icon} icon`} />
+            <i className={`icon-right massive ${iconName} icon`} />
         </div>
     );
 };

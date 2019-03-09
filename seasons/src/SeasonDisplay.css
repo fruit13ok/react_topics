@@ -1,0 +1,39 @@
+/* position on top left */
+.icon-left {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+/* position on bottom right */
+.icon-right {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+/* in season-display and winter, select i, set icon color */
+.season-display.winter i {
+    color: blue;
+}
+
+/* in season-display and summer, select i, set icon color */
+.season-display.summer i {
+    color: red;
+}
+
+/* center horizontally and vertically use flex */
+.season-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.winter {
+    background-color: aliceblue;
+}
+
+.summer {
+    background-color: orange;
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SeasonDisplay from './SeasonDisplay';
+import Spinner from './Spinner';
 
 // from function component to class component
 
@@ -48,7 +49,7 @@ class App extends React.Component {
             return <SeasonDisplay lat={this.state.lat} />;
         }
         // when popup question ask user to allow gps location, before user give answer
-        return <div>Loading...</div>;
+        return <Spinner message="Please accept location request" />;
     }
 }
 
