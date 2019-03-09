@@ -34,22 +34,26 @@ class App extends React.Component {
         );
     }
 
-    componentDidUpdate(){
-        console.log('my component just updated - rerendered');
+    // componentDidUpdate(){
+    //     console.log('my component just updated - rerendered');
+    // }
+
+    // to avoid condition in render, use helper function
+    // it take care of logic
+    // move condition from render to renderContent
+    renderContent() {
+        if (this.state.errorMessage && !this.state.lat) {
+          return <div>Error: {this.state.errorMessage}</div>;
+        }
+        if (!this.state.errorMessage && this.state.lat) {
+          return <SeasonDisplay lat={this.state.lat} />;
+        }
+        return <Spinner message="Please accept location request" />;
     }
 
+    // with helper function renderContent I can add css to wrap the whole content
     render(){
-        if(this.state.errorMessage && !this.state.lat){
-            return <div>Error: {this.state.errorMessage}</div>
-        }
-        if(!this.state.errorMessage && this.state.lat){
-            // pass state as a props
-            // when state change, parent and children receive the state will rerender
-            // create a props 'lat' to pass the state 'this.state.lat'
-            return <SeasonDisplay lat={this.state.lat} />;
-        }
-        // when popup question ask user to allow gps location, before user give answer
-        return <Spinner message="Please accept location request" />;
+        return <div className="some-css-class">{this.renderContent()}</div>;
     }
 }
 
