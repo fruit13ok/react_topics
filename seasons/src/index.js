@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import SeasonDisplay from './SeasonDisplay';
 
 // from function component to class component
 
@@ -12,10 +13,6 @@ class App extends React.Component {
     // our constructor overwriting constructor inside React.Component,
     // use super(props) to reference parent React.Component and pass in props,
     // initialize state object
-    // constructor(props){
-    //     super(props);
-    //     this.state = {lat: null, errorMessage: ''};
-    // }
 
     // init state outside of constructor is the shorthand, Babel will build default constructor with your state
     // no 'this' keyword
@@ -41,18 +38,14 @@ class App extends React.Component {
     }
 
     render(){
-        // return (
-        //     <div>
-        //         Latitude: {this.state.lat}
-        //         <br />
-        //         Error: {this.state.errorMessage}
-        //     </div>
-        // );
         if(this.state.errorMessage && !this.state.lat){
             return <div>Error: {this.state.errorMessage}</div>
         }
         if(!this.state.errorMessage && this.state.lat){
-            return <div>Latitude: {this.state.lat}</div>
+            // pass state as a props
+            // when state change, parent and children receive the state will rerender
+            // create a props 'lat' to pass the state 'this.state.lat'
+            return <SeasonDisplay lat={this.state.lat} />;
         }
         // when popup question ask user to allow gps location, before user give answer
         return <div>Loading...</div>;
