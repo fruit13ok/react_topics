@@ -13,28 +13,34 @@ class SearchBar extends React.Component{
     // use function to handle event like click or keypress,
     // it will be pass as callback function as a props,
     // so when pass just use the name, don't put () at the end
-    // onInputChange(event){
-    //     console.log(event.target.value);
-    // }
-    // onInputClick(){
-    //     console.log('input was clicked');
-    // }
-    // onFormSubmit = event => {
-    //     event.preventDefault();
-    //     this.props.onSubmit(this.state.term);
-    // };
+    // 
+    // use state to store those changing value (VDOM), so we don't need to store in DOM
+    state = { term: ''};
+    // to handle form submit
+    // use ES6 function to auto bind 'this'
+    onFormSubmit = (event) =>{
+        // preventDefault() will disable default form feature,
+        // so when hit enter, will not submit the form, nor refresh the page
+        event.preventDefault();
+        // console.log(this.state.term);
+        // this.props.onSubmit contain a function passed in,
+        // when onFormSubmit execute, onSubmit will trigger the parent,
+        // this.state.term will pass back to parent
+        this.props.onSubmit(this.state.term);
+      };
     render(){
         return (
             <div className='ui segment'>
-                <form className='ui form'>
+                <form onSubmit={this.onFormSubmit} className='ui form'>
                 <div className='field'>
                 <label>Inmage Search</label>
                     <input 
                         type='text' 
-                        // onClick={this.onInputClick} 
-                        // onChange={this.onInputChange}
+                        // use value property to display state value
+                        value={this.state.term}
                         // shorthand event handling use anonymous function
-                        onChange={(event) => console.log(event.target.value)}
+                        // each keypress event will update the state, rerender the component
+                        onChange={(event) => this.setState({term: event.target.value})}
                     />
                 </div>
                 </form>
