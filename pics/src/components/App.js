@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import SearchBar from './SearchBar';
 import unsplash from '../api/unsplash';
+import ImageList from './ImageList';
 
 // use 'container' class wrap components with margin and center
 class App extends React.Component {
@@ -37,7 +38,8 @@ class App extends React.Component {
         return (
             <div className='ui container' style={{marginTop: '10px'}}>
                 <SearchBar onSubmit={this.onSearchSubmit} />
-                Found: {this.state.images.length} images
+                {/* pass images array to ImageList */}
+                <ImageList images={this.state.images} />
             </div>
         );
     }
