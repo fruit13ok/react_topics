@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import SearchBar from './SearchBar';
+import unsplash from '../api/unsplash';
 
 // use 'container' class wrap components with margin and center
 class App extends React.Component {
@@ -12,13 +13,17 @@ class App extends React.Component {
     onSearchSubmit = async (term) =>{
         // same as
         // https://api.unsplash.com/search/photos/?query=office&client_id=b6d57a92abdcfbd53072d71314a13ea29068024117573466a894bdddbc8e6e91
-        const response = await axios.get('https://api.unsplash.com/search/photos',{
+        // const response = await axios.get('https://api.unsplash.com/search/photos',{
+        // using axios refactor in unsplash.js,
+        // move root url, and headers to unsplash.js
+        // use unsplash.get instead of axios.get
+        const response = await unsplash.get('/search/photos',{
             params: {
                 query: term
             },
-            headers: {
-                Authorization: 'Client-ID b6d57a92abdcfbd53072d71314a13ea29068024117573466a894bdddbc8e6e91'
-            }
+            // headers: {
+            //     Authorization: 'Client-ID b6d57a92abdcfbd53072d71314a13ea29068024117573466a894bdddbc8e6e91'
+            // }
         })
         // response from get request promise/call back
         // this return a list of objects represent images
